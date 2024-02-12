@@ -30,13 +30,10 @@ class HashMap {
 
   get(key) {
     const index = this.hash(key);
-    if (
-      this.buckets[index].headNode === null ||
-      key !== this.buckets[index].headNode.value[0]
-    ) {
+    if (this.buckets[index].headNode === null || !this.has(key)) {
       return null;
     }
-    return this.buckets[index].headNode.value[1];
+    return this.buckets[index].at(this.buckets[index].find(key)).value[1];
   }
 
   has(key) {
@@ -49,4 +46,4 @@ class HashMap {
 const hm = new HashMap();
 hm.set('Royal', 'old');
 hm.set('Royal', 'new');
-console.log(hm.has('oyal'));
+console.log(hm.get('Royal'));
