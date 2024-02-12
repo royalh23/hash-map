@@ -27,9 +27,20 @@ class HashMap {
       this.buckets[index].headNode.value[1] = value;
     }
   }
+
+  get(key) {
+    const index = this.hash(key);
+    if (
+      this.buckets[index].headNode === null ||
+      key !== this.buckets[index].headNode.value[0]
+    ) {
+      return null;
+    }
+    return this.buckets[index].headNode.value[1];
+  }
 }
 
 const hm = new HashMap();
 hm.set('Royal', 'old');
 hm.set('Royal', 'new');
-console.log(hm);
+console.log(hm.get('Royal'));
