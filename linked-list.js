@@ -69,7 +69,7 @@ export default class LinkedList {
     if (this.headNode === null) return false;
     let temp = this.headNode;
     while (temp !== null) {
-      if (temp.value === value) return true;
+      if (temp.value[0] === value) return true;
       temp = temp.next;
     }
     return false;
@@ -80,7 +80,7 @@ export default class LinkedList {
     let count = 0;
     let temp = this.headNode;
     while (temp !== null) {
-      if (temp.value === value) return count;
+      if (temp.value[0] === value) return count;
       count += 1;
       temp = temp.next;
     }

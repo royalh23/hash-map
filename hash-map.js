@@ -38,9 +38,15 @@ class HashMap {
     }
     return this.buckets[index].headNode.value[1];
   }
+
+  has(key) {
+    const index = this.hash(key);
+
+    return this.buckets[index].contains(key);
+  }
 }
 
 const hm = new HashMap();
 hm.set('Royal', 'old');
 hm.set('Royal', 'new');
-console.log(hm.get('Royal'));
+console.log(hm.has('oyal'));
