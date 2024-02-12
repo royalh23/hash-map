@@ -52,7 +52,7 @@ export default class LinkedList {
   }
 
   pop() {
-    if (this.headNode === null) throw new Error('Cannot delete the head node!');
+    if (this.headNode === null) throw new Error('The linked list is empty!');
     else if (this.size() === 1) this.headNode = null;
     else {
       let cur = this.headNode;
