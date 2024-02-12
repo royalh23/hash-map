@@ -2,7 +2,7 @@ import LinkedList from './linked-list.js';
 
 class HashMap {
   constructor() {
-    this.buckets = new Array(16).fill(new LinkedList());
+    this.buckets = new Array(16).fill(null).map(() => new LinkedList());
   }
 
   hash(key) {
@@ -15,7 +15,21 @@ class HashMap {
 
     return hashCode;
   }
+
+  set(key, value) {
+    const index = this.hash(key);
+    if (
+      this.buckets[index].headNode === null ||
+      key !== this.buckets[index].headNode.value[0]
+    ) {
+      this.buckets[index].append([key, value]);
+    } else {
+      this.buckets[index].headNode.value[1] = value;
+    }
+  }
 }
 
 const hm = new HashMap();
+hm.set('Royal', 'old');
+hm.set('Royal', 'new');
 console.log(hm);
