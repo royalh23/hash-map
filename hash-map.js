@@ -33,7 +33,7 @@ class HashMap {
     if (this.buckets[index].headNode === null || !this.has(key)) {
       return null;
     }
-    return this.buckets[index].at(this.buckets[index].find(key)).value[1];
+    return this.buckets[index].find(key);
   }
 
   has(key) {

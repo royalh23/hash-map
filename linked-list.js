@@ -77,11 +77,9 @@ export default class LinkedList {
 
   find(value) {
     if (this.headNode === null) return null;
-    let count = 0;
     let temp = this.headNode;
     while (temp !== null) {
-      if (temp.value[0] === value) return count;
-      count += 1;
+      if (temp.value[0] === value) return temp.value[1];
       temp = temp.next;
     }
     return null;
