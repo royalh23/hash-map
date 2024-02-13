@@ -13,6 +13,7 @@
     "no-param-reassign": "off",
     "no-plusplus": "off",
     "no-return-assign": "off",
+    "no-unused-vars": "off",
     "import/extensions": "off"
   }
 }
