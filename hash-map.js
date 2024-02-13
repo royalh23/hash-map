@@ -63,6 +63,48 @@ class HashMap {
     this.loadFactor = 0.75;
     this.buckets = new Array(16).fill(null).map(() => new LinkedList());
   }
+
+  keys() {
+    const arr = [];
+
+    this.buckets.forEach((bucket) => {
+      let temp = bucket.headNode;
+      while (temp !== null) {
+        arr.push(temp.value[0]);
+        temp = temp.next;
+      }
+    });
+
+    return arr;
+  }
+
+  values() {
+    const arr = [];
+
+    this.buckets.forEach((bucket) => {
+      let temp = bucket.headNode;
+      while (temp !== null) {
+        arr.push(temp.value[1]);
+        temp = temp.next;
+      }
+    });
+
+    return arr;
+  }
+
+  entries() {
+    const arr = [];
+
+    this.buckets.forEach((bucket) => {
+      let temp = bucket.headNode;
+      while (temp !== null) {
+        arr.push(temp.value);
+        temp = temp.next;
+      }
+    });
+
+    return arr;
+  }
 }
 
 const hm = new HashMap();
@@ -99,3 +141,7 @@ console.log(hm.buckets[12]);
 console.log(hm.buckets[13]);
 console.log(hm.buckets[14]);
 console.log(hm.buckets[15]);
+
+console.log(hm.keys());
+console.log(hm.values());
+console.log(hm.entries());
