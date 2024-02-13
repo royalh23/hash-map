@@ -65,6 +65,21 @@ export default class LinkedList {
     }
   }
 
+  delete(key) {
+    if (this.headNode === null) this.pop();
+    else if (key === this.headNode.value[0]) {
+      this.headNode = this.headNode.next;
+    } else {
+      let cur = this.headNode;
+      let prev = null;
+      while (cur.next !== null && key !== cur.value[0]) {
+        prev = cur;
+        cur = cur.next;
+      }
+      prev.next = cur.next;
+    }
+  }
+
   contains(value) {
     if (this.headNode === null) return false;
     let temp = this.headNode;
