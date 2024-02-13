@@ -17,6 +17,17 @@ class HashMap {
   }
 
   set(key, value) {
+    const loadFactor = this.length() / this.capacity;
+
+    if (loadFactor >= 0.75) {
+      const oldPairs = this.entries();
+      this.capacity *= 2;
+      this.buckets = new Array(this.capacity)
+        .fill(null)
+        .map(() => new LinkedList());
+      oldPairs.forEach((entry) => this.set(entry[0], entry[1]));
+    }
+
     const index = this.hash(key);
     if (
       this.buckets[index].headNode === null ||
@@ -60,8 +71,9 @@ class HashMap {
 
   clear() {
     this.capacity = 16;
-    this.loadFactor = 0.75;
-    this.buckets = new Array(16).fill(null).map(() => new LinkedList());
+    this.buckets = new Array(this.capacity)
+      .fill(null)
+      .map(() => new LinkedList());
   }
 
   keys() {
@@ -106,42 +118,3 @@ class HashMap {
     return arr;
   }
 }
-
-const hm = new HashMap();
-hm.set('A', 1);
-hm.set('B', 1);
-hm.set('C', 1);
-hm.set('D', 1);
-hm.set('E', 1);
-hm.set('F', 1);
-hm.set('G', 1);
-hm.set('H', 1);
-hm.set('I', 1);
-hm.set('J', 1);
-hm.set('K', 1);
-hm.set('L', 1);
-hm.set('M', 1);
-hm.set('N', 1);
-hm.set('O', 1);
-hm.set('P', 1);
-
-console.log(hm.buckets[0]);
-console.log(hm.buckets[1]);
-console.log(hm.buckets[2]);
-console.log(hm.buckets[3]);
-console.log(hm.buckets[4]);
-console.log(hm.buckets[5]);
-console.log(hm.buckets[6]);
-console.log(hm.buckets[7]);
-console.log(hm.buckets[8]);
-console.log(hm.buckets[9]);
-console.log(hm.buckets[10]);
-console.log(hm.buckets[11]);
-console.log(hm.buckets[12]);
-console.log(hm.buckets[13]);
-console.log(hm.buckets[14]);
-console.log(hm.buckets[15]);
-
-console.log(hm.keys());
-console.log(hm.values());
-console.log(hm.entries());
