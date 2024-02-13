@@ -51,10 +51,17 @@ class HashMap {
     }
     return false;
   }
+
+  length() {
+    let count = 0;
+    this.buckets.forEach((bucket) => (count += bucket.size()));
+    return count;
+  }
 }
 
 const hm = new HashMap();
 hm.set('Royal', 'old');
 hm.set('Royal', 'new');
-// hm.remove('Royal');
-console.log(hm.get('Royal'));
+hm.set('S', 2);
+hm.set('D', 2);
+console.log(hm.length());
