@@ -1,6 +1,10 @@
 import LinkedList from './linked-list.js';
 
 class HashMap {
+  #capacity;
+
+  #buckets;
+
   constructor() {
     this.clear();
   }
@@ -10,19 +14,19 @@ class HashMap {
 
     const primeNumber = 31;
     for (let i = 0; i < key.length; i++) {
-      hashCode = (primeNumber * hashCode + key.charCodeAt(i)) % this.capacity;
+      hashCode = (primeNumber * hashCode + key.charCodeAt(i)) % this.#capacity;
     }
 
     return hashCode;
   }
 
   set(key, value) {
-    const loadFactor = this.length() / this.capacity;
+    const loadFactor = this.length() / this.#capacity;
 
     if (loadFactor >= 0.75) {
       const oldPairs = this.entries();
-      this.capacity *= 2;
-      this.buckets = new Array(this.capacity)
+      this.#capacity *= 2;
+      this.#buckets = new Array(this.#capacity)
         .fill(null)
         .map(() => new LinkedList());
       oldPairs.forEach((entry) => this.set(entry[0], entry[1]));
@@ -30,19 +34,19 @@ class HashMap {
 
     const index = this.hash(key);
     if (
-      this.buckets[index].headNode === null ||
-      key !== this.buckets[index].headNode.value[0]
+      this.#buckets[index].headNode === null ||
+      key !== this.#buckets[index].headNode.value[0]
     ) {
-      this.buckets[index].append([key, value]);
+      this.#buckets[index].append([key, value]);
     } else {
-      this.buckets[index].headNode.value[1] = value;
+      this.#buckets[index].headNode.value[1] = value;
     }
   }
 
   get(key) {
     const index = this.hash(key);
     if (this.has(key)) {
-      return this.buckets[index].find(key);
+      return this.#buckets[index].find(key);
     }
     return null;
   }
@@ -50,14 +54,14 @@ class HashMap {
   has(key) {
     const index = this.hash(key);
 
-    return this.buckets[index].contains(key);
+    return this.#buckets[index].contains(key);
   }
 
   remove(key) {
     const index = this.hash(key);
 
     if (this.has(key)) {
-      this.buckets[index].delete(key);
+      this.#buckets[index].delete(key);
       return true;
     }
     return false;
@@ -65,13 +69,13 @@ class HashMap {
 
   length() {
     let count = 0;
-    this.buckets.forEach((bucket) => (count += bucket.size()));
+    this.#buckets.forEach((bucket) => (count += bucket.size()));
     return count;
   }
 
   clear() {
-    this.capacity = 16;
-    this.buckets = new Array(this.capacity)
+    this.#capacity = 16;
+    this.#buckets = new Array(this.#capacity)
       .fill(null)
       .map(() => new LinkedList());
   }
@@ -79,7 +83,7 @@ class HashMap {
   keys() {
     const arr = [];
 
-    this.buckets.forEach((bucket) => {
+    this.#buckets.forEach((bucket) => {
       let temp = bucket.headNode;
       while (temp !== null) {
         arr.push(temp.value[0]);
@@ -93,7 +97,7 @@ class HashMap {
   values() {
     const arr = [];
 
-    this.buckets.forEach((bucket) => {
+    this.#buckets.forEach((bucket) => {
       let temp = bucket.headNode;
       while (temp !== null) {
         arr.push(temp.value[1]);
@@ -107,7 +111,7 @@ class HashMap {
   entries() {
     const arr = [];
 
-    this.buckets.forEach((bucket) => {
+    this.#buckets.forEach((bucket) => {
       let temp = bucket.headNode;
       while (temp !== null) {
         arr.push(temp.value);
